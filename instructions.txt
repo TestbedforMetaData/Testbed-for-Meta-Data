@@ -1,0 +1,5 @@
+1. Project is in the "TestbedforDigitalMetadata" folder.
+2. To create the database, you need to run "TestMeta.sql" file.
+3. To configure project, you need to change database server name, username, and password on "config/app.php".
+4. Css and JavaScript files are in "webroot" folder.
+5. Model, View and controller files are in "src" folder.
