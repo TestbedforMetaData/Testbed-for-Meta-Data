@@ -3,3 +3,16 @@
 3. To configure project, you need to change database server name, username, and password on "config/app.php".
 4. Css and JavaScript files are in "webroot" folder.
 5. Model, View and controller files are in "src" folder.
+
+For admin Login
+
+username : admin
+password : password
+
+For User Login
+
+username : testuser
+password : test
+
+username : test2
+password : test
