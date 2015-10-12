@@ -1,24 +1,16 @@
-# CakePHP Application Skeleton
+# Testbed for Digital Metadata
 
-[![Build Status](https://api.travis-ci.org/cakephp/app.png)](https://travis-ci.org/cakephp/app)
-[![License](https://poser.pugx.org/cakephp/app/license.svg)](https://packagist.org/packages/cakephp/app)
+Project is in the "TestbedforDigitalMetadata" folder.
 
-A skeleton for creating applications with [CakePHP](http://cakephp.org) 3.0.
+## Database
 
-## Installation
-
-1. Download [Composer](http://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
-
-If Composer is installed globally, run
-```bash
-composer create-project --prefer-dist cakephp/app [app_name]
-```
-
-You should now be able to visit the path to where you installed the app and see
-the setup traffic lights.
+To create the database, you need to run "TestMeta.sql" file.
 
 ## Configuration
 
-Read and edit `config/app.php` and setup the 'Datasources' and any other
-configuration relevant for your application.
+To configure project, you need to change database server name, username, and password on "config/app.php".
+
+## Source Files
+
+Model, View and controller files are in "src" folder.
+Css and JavaScript files are in "webroot" folder.
