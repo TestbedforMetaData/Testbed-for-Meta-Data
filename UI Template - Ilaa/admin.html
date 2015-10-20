@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<style> body {background-color:lightgray} h1 {color:blue}   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Testbed for Digital Metadata        Admin    </title>
+
+    <link rel="stylesheet" href="css/main.css"/>
+         </style>   </head>
+<body>
+ <h1>Welcome ! ADMIN</h1>   <header>
+        <span id="header-title">Testbed for Digital Metadata</span>
+                <a id="logout" href="/TestBedForDigitalMetadata/user/logout">Log out</a>
+            </header>
+    <div id="container">
+        <div class="column">
+    <div class="title">
+        Create New User
+    </div>
+    <form method="post">
+        USERNAME:<br>
+                <input type="text" name="username">
+            <br>
+            PASSWORD:<br>
+                <input type="password" name="password">
+            </div>
+            <div class="row">
+                <button type="submit" name="action" value="add">Add User</button>
+            </div>
+                    </div>
+    </form>
+</div>
+<div class="column">
+    <div class="title">
+        User List
+    </div>
+        <form method="post">
+        <div class="list-item">
+            <input type="hidden" name="id" value="3">
+            <span>Username : testuser</span>
+            <button type="submit" name="action" value="delete">Delete</button>
+        </div>
+    </form>
+        </div>    </div>
+    <footer>
+    </footer>
+</body>
+</html>
