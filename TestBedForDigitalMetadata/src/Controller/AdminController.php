@@ -72,5 +72,49 @@ class AdminController extends AppController {
         $this->set("deleteMessage",$deleteMessage);
         
     }
+    
+    public function changePassword()
+    {
+        $addMessage = "";
+        
+        if($this->request->is("post"))
+        {
+            $oldPassword = $this->request->data("old-password");
+            $newPassword = $this->request->data("new-password");
+            
+            $user = $this->Auth->user();
+            
+            $usersTable = \Cake\ORM\TableRegistry::get("Users");
+            
+            $userEntity = $usersTable->get($user["id"]);
+            
+            if((new \Cake\Auth\DefaultPasswordHasher)->check($oldPassword, $userEntity->password))
+            {
+                if($newPassword != "")
+                {
+                    $userEntity->password = $newPassword;
+                    
+                    if($usersTable->save($userEntity))
+                    {
+                        $addMessage = "Password changed!";
+                    }
+                    else
+                    {
+                        $addMessage = "An error has occured!";
+                    }
+                }
+                else
+                {
+                    $addMessage = "New password can't be empty!";
+                }
+            }
+            else
+            {
+                $addMessage = "Old password is incorrect!";
+            }
+        }
+        
+        $this->set("addMessage",$addMessage);
+    }
 
 }

@@ -35,6 +35,7 @@ $description = 'Testbed for Digital Metadata';
     <header>
         <span id="header-title">Testbed for Digital Metadata</span>
         <?php if($loggedOn){ ?>
+        <a id="menu" href="<?= $this->Url->build(["controller" => "Admin","action" => "changePassword"]) ?>">Change Password</a>
         <a id="logout" href="<?= $this->Url->build(["controller" => "User","action" => "logout"]) ?>">Log out</a>
         <?php } ?>
     </header>
