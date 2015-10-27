@@ -1,0 +1,8 @@
+1. Sql file for the current database is "Latest_Database.sql", you will have to delete the old one.
+2. I also prepared a diagram for the current database.
+3. Relations are created in CakePHP, not in mySQL.
+4. I created a virtual property for options in question entities. You can acces it by $question->options.
+5. Questions have a type_id property. 1 = Text, 2 = Radio, 3 = Checkbox.
+6. Compilation parts have a type property. It can be "Document" or "Question". They also have part_id property, it is the id of the question or document.
+7. Right now, admin part has only "add" functionality for questions,documents and compilations. I will write the delete and update parts.
+8. I added a few documents, questions and a compilation. With these, main application can be crated and tested.
