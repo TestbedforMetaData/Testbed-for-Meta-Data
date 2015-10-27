@@ -1,0 +1,311 @@
+﻿html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, form {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    font-family: Verdana;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+input[type='text'],input[type='password'],textarea{
+    font-size: 100%;
+    font-family: Verdana;
+}
+
+textarea {
+    resize: none;
+}
+
+body{
+    background-color: #F1F1F1;
+}
+
+html,body{
+    height: 100%;
+}
+
+img {
+    max-width: 100%;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+input[type='submit'],button{
+    cursor: pointer;
+}
+
+td{
+    vertical-align: top;
+}
+
+embed{
+    margin-top: 10px;
+    border: 1px solid #999999;
+}
+
+div.container{
+    margin: auto;
+    max-width: 1000px;
+}
+
+header{
+    padding: 15px;
+    background-color: #003CAE;
+    color: #F1F1F1;
+}
+
+header a{
+    color: #FFFFFF;
+}
+
+header a:hover{
+    text-decoration: underline;
+}
+
+header a.menu{
+    float: right;
+    display: inline-block;
+    padding: 0px 5px 0px 5px;
+}
+
+a#header-title{
+    font-size: 22px;
+}
+
+div.panel{
+    display: inline-block;
+    background-color:#FFFFFF;
+    border: 1px solid #CCCCCC;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+div.center{
+    text-align: center;
+}
+
+div.top-pad{
+    padding-top: 100px;
+}
+
+div.row{
+    padding: 5px;
+}
+
+div.row span.label{
+    display: inline-block;
+    width: 45%;
+    text-align: right;
+    padding-right: 5px;
+}
+
+div.row .description{
+    width: 50%;
+}
+
+div.column-half{
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+}
+
+div.padded{
+    padding: 15px;
+}
+
+div.padded-small{
+    padding: 5px;
+}
+
+div.warning{
+    text-decoration: underline;
+    color:#b82720;
+}
+
+div.list{
+    border: 1px solid #CCCCCC;
+}
+
+div.list div.list-header{
+    background-color: #003CAE;
+    color: #FFFFFF;
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+div.list-item{
+    padding: 5px;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+div.list-item:nth-child(odd){
+    background-color: #FFFFFF;
+}
+
+div.list-item:last-child{
+    border-bottom: none;
+}
+
+a.block-link{
+    display: inline-block;
+    background-color: #003CAE;
+    color: #F1F1F1;
+    border: 1px solid #CCCCCC;
+    
+}
+
+a.block-link:hover{
+    color: #003CAE;
+    background-color: #F1F1F1;
+}
+
+.large{
+    font-size: 24px;
+    padding: 30px;
+    width: 300px;
+    margin: 0px 15px 0px 15px;
+}
+
+div.page-title{
+    font-size: 24px;
+    padding: 5px 5px 10px 5px;
+}
+
+div.tab-container{
+    border: 1px solid #CCCCCC;
+}
+
+div.tab-menu{
+    background-color: #003CAE;
+    padding: 5px 5px 0px 5px;
+}
+
+div.tab-menu a{
+    display: inline-block;
+    padding: 15px;
+    color: #FFFFFF;
+    margin: 0px 3px 0px 3px;
+    border-top:1px solid #003CAE;
+    border-left:1px solid #003CAE;
+    border-right:1px solid #003CAE;
+}
+
+div.tab-menu a:hover{
+    text-decoration: underline;
+}
+
+div.tab-menu span{
+    display: inline-block;
+    padding: 15px;
+    background-color: #FFFFFF;
+    color: #003CAE;
+    margin: 0px 3px 0px 3px;
+    border-top:1px solid #CCCCCC;
+    border-left:1px solid #CCCCCC;
+    border-right:1px solid #CCCCCC;
+}
+
+div.tab-panel{
+    background-color: #FFFFFF;
+    min-height: 500px;
+}
+
+div.tab-panel td{
+    padding: 10px;
+    
+}
+
+ul.link-list{
+    border:1px solid #CCCCCC;
+    width: 220px;
+    height: 470px;
+    overflow-y: auto;
+}
+
+ul.link-list a{
+    display: block;
+    padding: 5px;
+    border-bottom: 1px solid #CCCCCC;
+    color: #003CAE;
+}
+
+ul.link-list a.selected{
+    background-color: #10102C;
+    color:#FFFFFF;
+}
+
+ul.link-list a:hover{
+    background-color: #003CAE;
+    color:#FFFFFF;
+}
+
+div.wide{
+    width: 600px;
+}
+
+div.option-item{
+    padding: 2px;
+}
+
+div.option-item input[type='text']{
+    width: 500px;
+    font-size: 14px;
+}
+
+input[type='text'].full-width,textarea.full-width{
+    width: 95%;
+}
+
+div.right{
+    text-align: right;
+}
+
+
+div.comp-item button{    
+    
+    float: right;
+    
+}
+
+div.comp-item{
+    
+    display: inline-block;
+    min-width: 400px;
+    padding: 3px;
+    border-right:1px solid #AAAAAA;
+    border-left:1px solid #AAAAAA;
+    border-top:1px solid #AAAAAA;
+}
+
+div.comp-item:last-child{
+    border-bottom:1px solid #AAAAAA;
+}
+
+div.question-item{
+    background-color: #CCFFB2;
+}
+
+div.document-item{
+    background-color: #B3E5FC;
+}

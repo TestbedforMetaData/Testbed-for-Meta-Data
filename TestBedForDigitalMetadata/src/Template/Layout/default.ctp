@@ -26,6 +26,8 @@ $description = 'Testbed for Digital Metadata';
     </title>
 
     <?= $this->Html->css('main.css') ?>
+    <?= $this->Html->script('jquery-1.10.2.min') ?>
+    <?= $this->Html->script('mainScript') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -33,13 +35,15 @@ $description = 'Testbed for Digital Metadata';
 </head>
 <body>
     <header>
-        <span id="header-title">Testbed for Digital Metadata</span>
-        <?php if($loggedOn){ ?>
-        <a id="menu" href="<?= $this->Url->build(["controller" => "Admin","action" => "changePassword"]) ?>">Change Password</a>
-        <a id="logout" href="<?= $this->Url->build(["controller" => "User","action" => "logout"]) ?>">Log out</a>
-        <?php } ?>
+        <div class="container">
+            <a id="header-title" href="<?= $this->Url->build(["controller" => "Home","action" => "index"]) ?>">Testbed for Digital Metadata</a>
+            <?php if($loggedOn){ ?>
+            <a class="menu" id="logout" href="<?= $this->Url->build(["controller" => "User","action" => "logout"]) ?>">Log out</a>
+            <a class="menu" href="<?= $this->Url->build(["controller" => "Admin","action" => "changePassword"]) ?>">Change Password</a>
+            <?php } ?>
+        </div>
     </header>
-    <div id="container">
+    <div class="container">
         <?= $this->fetch('content') ?>
     </div>
     <footer>

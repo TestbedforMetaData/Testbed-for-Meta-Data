@@ -9,9 +9,9 @@
         <a href="<?= $this->Url->build(["action" => "questions"]) ?>">
             Questions
         </a>
-        <a href="<?= $this->Url->build(["action" => "database"]) ?>">
-            Database
-        </a>
+        <span>
+            Answers
+        </span>
         <a href="<?= $this->Url->build(["action" => "compilations"]) ?>">
             Compilations
         </a>
