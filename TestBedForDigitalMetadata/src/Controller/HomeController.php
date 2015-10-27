@@ -11,6 +11,19 @@ class HomeController extends AppController {
     public function index() {
         
        
+        
+        
+    }
+    
+    public function login()
+    {
+        $user = $this->Auth->user();
+        
+        if($user != null && $user["role"] == 1)
+        {
+            return $this->redirect(["controller" => "Admin"]);
+        }
+        
         $error = false;
         
         if($this->request->is("post"))
@@ -39,7 +52,6 @@ class HomeController extends AppController {
         }
 
         $this->set("error",$error);
-        
     }
 
 }
