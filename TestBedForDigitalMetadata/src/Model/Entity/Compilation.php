@@ -17,7 +17,7 @@ class Compilation extends Entity {
         $questionsTable = TableRegistry::get("Questions");
         $uploadsTable = TableRegistry::get("Uploads");
         
-        $compilationParts = TableRegistry::get("CompilationParts")->find()->order("visible_order")->toArray();
+        $compilationParts = TableRegistry::get("CompilationParts")->find()->where(["compilation_id" => $this->id])->order("visible_order")->toArray();
         
         $parts = array();
         
