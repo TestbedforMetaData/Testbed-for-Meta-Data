@@ -37,7 +37,7 @@
                     
                     <div id="compilation" class="wide">
                         <div class="padded-small">
-                            <input type="text" placeholder="Compilation Name" id="compilation-name" name="compilation-name" class="full-width">
+                            <input type="text" placeholder="Compilation Name" id="compilation-name" name="compilation-name" class="full-width" value="<?= $compilation->name ?>">
                         </div>
                         <div class="padded-small">
                             <select id="add-document">
