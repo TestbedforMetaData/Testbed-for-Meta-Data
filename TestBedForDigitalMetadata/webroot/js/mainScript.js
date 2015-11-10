@@ -15,6 +15,172 @@ $(document).on("change","div#question select#question-type",function(){
     
 });
 
+$(document).on("click","div.option-item",function(){
+
+    $("div.option-item").removeClass("selected");
+    
+    
+    $("div.option-item").each(function (key,value){ 
+        
+        var upDown = $(this).find("div.up-down");
+        
+        $(upDown).remove();
+    });  
+    
+    $(this).addClass("selected");
+    
+    var divUpdown = $("<div class='up-down'><a href='#' class='up'>&#9652;</a><a href='#' class='down'>&#9662;</a></div>");
+        
+    if($(this).find("div.up-down").length == 0)    
+    {
+        $(this).append(divUpdown);
+    }
+    
+});
+
+
+$(document).on("click","div.comp-item",function(){
+
+    $("div.comp-item").removeClass("selected");
+    
+    
+    $("div.comp-item").each(function (key,value){ 
+        
+        var upDown = $(this).find("div.up-down");
+        
+        $(upDown).remove();
+    });  
+    
+    $(this).addClass("selected");
+    
+    var divUpdown = $("<div class='up-down'><a href='#' class='up'>&#9652;</a><a href='#' class='down'>&#9662;</a></div>");
+        
+    if($(this).find("div.up-down").length == 0)    
+    {
+        $(this).append(divUpdown);
+    }
+    
+});
+
+
+
+$(document).on("click","div.option-item div.up-down a.down", function(){
+    
+    var element = $(this).closest("div.option-item");
+    
+    var list = $("div.option-item");
+    
+    var length = $(list).length;
+    
+    var index = $(list).index(element);
+    
+    var last = false;
+    
+    if(index == length -1)
+    {
+        last = true;
+    }
+    
+    if(!last)
+    {
+        $($(list).get(index + 1)).after(element);
+    }
+    
+    return false;
+    
+});
+
+
+$(document).on("click","div.option-item div.up-down a.up", function(){
+    
+    var element = $(this).closest("div.option-item");
+    
+    var list = $("div.option-item");
+    
+    var index = $(list).index(element);
+    
+    var first = false;
+    
+    if(index == 0)
+    {
+        first = true;
+    }
+    
+    if(!first)
+    {
+        $($(list).get(index - 1)).before(element);
+    }
+    
+    return false;
+    
+});
+
+
+
+
+
+
+
+$(document).on("click","div.comp-item div.up-down a.down", function(){
+    
+    var element = $(this).closest("div.comp-item");
+    
+    var list = $("div.comp-item");
+    
+    var length = $(list).length;
+    
+    var index = $(list).index(element);
+    
+    var last = false;
+    
+    if(index == length -1)
+    {
+        last = true;
+    }
+    
+    if(!last)
+    {
+        $($(list).get(index + 1)).after(element);
+    }
+    
+    return false;
+    
+});
+
+
+$(document).on("click","div.comp-item div.up-down a.up", function(){
+    
+    var element = $(this).closest("div.comp-item");
+    
+    var list = $("div.comp-item");
+    
+    var index = $(list).index(element);
+    
+    var first = false;
+    
+    if(index == 0)
+    {
+        first = true;
+    }
+    
+    if(!first)
+    {
+        $($(list).get(index - 1)).before(element);
+    }
+    
+    return false;
+    
+});
+
+
+
+
+
+
+
+
+
+
 
 $(document).on("click","button#add-option",function(){
     
@@ -30,8 +196,8 @@ $(document).on("click","button#add-option",function(){
         
         var optionText = $("<input type='text' name='option-" + (count + 1) + "'>");
         
-        var deleteButton = $("<button type='button' id='delete-option'>X</button>");
-        
+        var deleteButton = $("<button type='button' class='delete' id='delete-option'>X</button>");
+         
         $(divOption).append(radio);
         $(divOption).append(optionText);
         $(divOption).append(deleteButton);
@@ -48,7 +214,9 @@ $(document).on("click","button#add-option",function(){
         
         var optionText = $("<input type='text' name='option-" + (count + 1) + "'>");
         
-        var deleteButton = $("<button type='button' id='delete-option'>X</button>");
+        var deleteButton = $("<button type='button' class='delete' id='delete-option'>X</button>");
+        
+        
         
         $(divOption).append(radio);
         $(divOption).append(optionText);
@@ -82,7 +250,7 @@ $(document).on("change","select#add-document",function(){
         
         var hiddenId = $("<input type='hidden' name='document-" + id + "' value='" + id + "'>");
         
-        var deleteButton = $("<button type='button' id='remove-document'>X</button>");
+        var deleteButton = $("<button type='button' class='delete' id='remove-document'>X</button>");
         
         $(divDocument).append(spanDocument);
         $(divDocument).append(hiddenId);
@@ -111,7 +279,7 @@ $(document).on("change","select#add-document",function(){
         
         var hiddenId = $("<input type='hidden' name='question-" + id + "' value='" + id + "'>");
         
-        var deleteButton = $("<button type='button' id='remove-question'>X</button>");
+        var deleteButton = $("<button type='button' class='delete' id='remove-question'>X</button>");
         
         $(divQuestion).append(spanQuestion);
         $(divQuestion).append(hiddenId);

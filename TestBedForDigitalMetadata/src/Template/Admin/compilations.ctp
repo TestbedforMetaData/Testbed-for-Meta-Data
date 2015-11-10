@@ -31,10 +31,13 @@
                     </ul>  
                 </td>
                 <td>
-                    <a href="<?= $this->Url->build(["action" => "compilations"]) ?>">Add new compilation</a>
+                    <a class="lnk" href="<?= $this->Url->build(["action" => "compilations"]) ?>">Add new compilation</a>
+                    <?php if ($added) { ?>
+                    <div class="warning center">
+                        <?= $message ?>
+                    </div>
+                    <?php } else{ ?>
                     <form method="post">
-                        
-                    
                     <div id="compilation" class="wide">
                         <div class="padded-small">
                             <input type="text" placeholder="Compilation Name" id="compilation-name" name="compilation-name" class="full-width" value="<?= $compilation->name ?>">
@@ -59,11 +62,7 @@
                             <?php foreach($compilation->parts as $key => $item): ?>
                             
                             <div class='<?php if($item->type == "Question"){echo "question-item";}else{echo "document-item";} ?> comp-item'>
-                                <span>
-                                    <?= $item->text ?>
-                                </span>
-                                <input type='hidden' name='<?php if($item->type == "Question"){echo "question-".$item->id;}else{echo "document-".$item->id;} ?>' value='<?= $item->id ?>'>
-                                <button type='button' id='remove-<?php if($item->type == "Question"){echo "question";}else{echo "document";} ?>'>X</button>
+                                <span><?= $item->text ?></span><input type='hidden' name='<?php if($item->type == "Question"){echo "question-".$item->id;}else{echo "document-".$item->id;} ?>' value='<?= $item->id ?>'><button type='button' class="delete" id='remove-<?php if($item->type == "Question"){echo "question";}else{echo "document";} ?>'>X</button>
                             </div>
                             
                            
@@ -73,12 +72,18 @@
                         <div class="padded-small right">
                             <?php if ($id == null) { ?>
                             <button type="submit" id="submit-compilation" name="action" value="add">Add Compilation</button>
+                            <?php } else { ?>
+                            <button type="submit" id="submit-compilation" name="action" value="update">Update Compilation</button>
+                            &nbsp;&nbsp;
+                            <button type="submit" id="delete-compilation" name="action" value="delete">Delete Compilation</button>
                             <?php } ?>
                         </div>
                         <div class="warning center">
+                            <?= $message ?>
                         </div>
                     </div>
-                        </form>
+                    </form>
+                    <?php } ?>
                 </td>
             </tr>
         </table>

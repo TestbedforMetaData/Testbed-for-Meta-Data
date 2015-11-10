@@ -265,12 +265,42 @@ div.wide{
 }
 
 div.option-item{
-    padding: 2px;
+    padding: 5px;
+    border:1px solid transparent;
+}
+
+div.option-item input, div.option-item button, div.option-item div.up-down{
+    vertical-align: middle;
+    margin: 2px;
+    display: inline-block;
+}
+
+div.option-item.selected{
+    border:1px solid #CCCCCC;
+    background-color: #003CAE;
 }
 
 div.option-item input[type='text']{
-    width: 500px;
+    width: 470px;
     font-size: 14px;
+}
+
+div.up-down a{
+    color:#FFFFFF;
+    border:1px solid #FFFFFF;
+    display: block;
+    line-height: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+div.up-down a:first-child{
+    margin-bottom: 2px;
+}
+
+div.up-down a:hover{
+    background-color: #FFFFFF;
+    color: #003CAE;
 }
 
 input[type='text'].full-width,textarea.full-width{
@@ -282,21 +312,19 @@ div.right{
 }
 
 
-div.comp-item button{    
-    
-    float: right;
-    
-}
+
 
 div.comp-item{
     
     display: inline-block;
-    min-width: 400px;
-    padding: 3px;
+    min-width: 560px;
+    padding: 1px;
     border-right:1px solid #AAAAAA;
     border-left:1px solid #AAAAAA;
     border-top:1px solid #AAAAAA;
 }
+
+
 
 div.comp-item:last-child{
     border-bottom:1px solid #AAAAAA;
@@ -308,4 +336,46 @@ div.question-item{
 
 div.document-item{
     background-color: #B3E5FC;
+}
+
+div.comp-item.selected{
+    background-color: #003CAE;
+    color:#FFFFFF;
+}
+
+div.comp-item span, div.comp-item button, div.comp-item div{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 2px;
+}
+
+div.comp-item span{
+    width: 480px;
+}
+
+
+
+
+a.lnk{
+    color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    background-color: #003CAE;
+    display: inline-block;
+    padding: 5px;
+}
+
+a.lnk:hover{
+    color: #003CAE;
+    background-color: #FFFFFF;
+}
+
+button.delete{
+    border:1px solid #DD4444;
+    background-color: #b82720;
+    color:#FFFFFF;
+}
+
+button.delete:hover{
+    background-color: #FFFFFF;
+    color:#b82720;
 }

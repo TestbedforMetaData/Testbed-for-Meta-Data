@@ -31,7 +31,7 @@
                     </ul>  
                 </td>
                 <td>
-                    <a href="<?= $this->Url->build(["action" => "documents"]) ?>">Add new document</a>
+                    <a class="lnk" href="<?= $this->Url->build(["action" => "documents"]) ?>">Add new document</a>
                     <?php if ($message != "") { ?>
                     <div class="warning center">
                         <?= $message ?>

@@ -173,6 +173,73 @@ class AdminController extends AppController {
                    $message = "An error occured while adding the question!";
                }
            }
+           else if ($action == "update")
+           {
+               $name = $this->request->data("question-name");
+               $text = $this->request->data("question-text");
+               $type = $this->request->data("question-type");
+               
+               $optionsTable = TableRegistry::get("options");
+               
+               $question = $questions->get($id);
+               
+               $questionOptions = $question->options;
+               
+               $question->name = $name;
+               $question->text = $text;
+               $question->type_id = $type;
+               
+               foreach($questionOptions as $item)
+               {
+                   $optionsTable->delete($item);
+               }
+               
+               $options = array();
+               
+               foreach($this->request->data as $key => $value)
+               {
+                   if (strpos($key,"option-") !== false) 
+                   {
+                       array_push($options, $value);
+                   }
+               }
+               
+               foreach($options as $key => $item)
+                {
+                    $addOption = $optionsTable->newEntity();
+
+                    $addOption->text = $item;
+                    $addOption->question_id = $question->id;
+                    $addOption->visible_order = $key + 1;
+                            
+                    $optionsTable->save($addOption);
+                }
+                        
+                $questions->save($question);
+                
+                $message = "Question is updated successfully";
+
+           }
+           else if ($action == "delete")
+           {
+               $question = $questions->get($id);
+               
+               if($question->type_id != 1)
+               {
+                   $questionOptions = $question->options;
+                   
+                   $optionsTable = TableRegistry::get("options");
+                   
+                   foreach($questionOptions as $item)
+                   {
+                       $optionsTable->delete($item);
+                   }
+               }
+               
+               $questions->delete($question);
+               
+               return $this->redirect(["action" => "questions"]);
+           }
        }
 
        if($id != null)
@@ -193,6 +260,9 @@ class AdminController extends AppController {
     }
     
     public function compilations($id = null){
+        
+       $added = false; 
+       $message = "";
         
        $questions = TableRegistry::get("questions");
        $documents = TableRegistry::get("uploads");
@@ -249,7 +319,90 @@ class AdminController extends AppController {
                        
                        $compilationParts->save($compPart);
                    }
+                   
+                   $message = "Compilation is added successfully";
+                    $added = true;
                }
+               else
+               {
+                   $message = "An error occured while adding the compilation!";
+               }
+           }
+           else if ($action == "update")
+           {
+               $name = $this->request->data("compilation-name");
+               
+               $compilation = $compilations->get($id);
+               
+               $questionOptions = $question->options;
+               
+               $compilation->name = $name;
+
+               $parts = $compilationParts->find()->where(["compilation_id" => $compilation->id])->order("visible_order")->toArray();
+
+                   foreach($parts as $item)
+                   {
+                       $compilationParts->delete($item);
+                   }
+                   
+                   foreach($this->request->data as $key => $value)
+                   {
+                       if (strpos($key,"document-") !== false) 
+                       {
+                            $obj = new \stdClass();
+                            
+                            $obj->type = "Document";
+                            $obj->id = $value;
+                            
+                            array_push($partArray, $obj);
+                       }
+                       else if (strpos($key,"question-") !== false) 
+                       {
+                            $obj = new \stdClass();
+                            
+                            $obj->type = "Question";
+                            $obj->id = $value;
+                            
+                            array_push($partArray, $obj);
+                       }
+                   }
+                   
+                   if($compilations->save($compilation))
+               {
+                   foreach ($partArray as $key => $item)
+                   {
+                       $compPart = $compilationParts->newEntity();
+                       
+                       $compPart->compilation_id = $compilation->id;
+                       $compPart->part_id = $item->id;
+                       $compPart->type = $item->type;
+                       $compPart->visible_order = $key + 1;
+                       
+                       $compilationParts->save($compPart);
+                   }
+                   
+                   $message = "Compilation is updated successfully";
+               }
+               
+              
+                        
+               
+           }
+           else if ($action == "delete")
+           {
+               $compilation = $compilations->get($id);
+
+                   $parts = $compilationParts->find()->where(["compilation_id" => $compilation->id])->order("visible_order")->toArray();
+
+                   foreach($parts as $item)
+                   {
+                       $compilationParts->delete($item);
+                   }
+               
+               
+               $compilations->delete($compilation);
+               
+               return $this->redirect(["action" => "compilations"]);
            }
        }
        
@@ -267,7 +420,8 @@ class AdminController extends AppController {
 
       
        $this->set("id",$id);
-        
+       $this->set("added",$added);
+       $this->set("message",$message);
     }
 
 

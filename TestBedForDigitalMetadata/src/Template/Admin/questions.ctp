@@ -31,7 +31,7 @@
                     </ul>  
                 </td>
                 <td>
-                    <a href="<?= $this->Url->build(["action" => "questions"]) ?>">Add new question</a>
+                    <a class="lnk" href="<?= $this->Url->build(["action" => "questions"]) ?>">Add new question</a>
                     <?php if ($added) { ?>
                     <div class="warning center">
                         <?= $message ?>
@@ -58,21 +58,24 @@
                                     Checkbox
                                 </option>
                             </select>
+                            <?php if($id != null && ($question->type_id == 2 || $question->type_id == 3)){ ?>
+                            <button type='button' id='add-option'>Add Option</button>
+                            <?php } ?>
                         </div>
                         <div id="options" class="padded-small">
                             <?php if($id != null && $question->type != 1) { ?>
                             <?php foreach($question->options as $key => $option): ?>
-                            <div class="option-item">
-                                <input checked disabled type="<?= $question->type ?>">
-                                <input type="text" name="option-<?= $key + 1 ?>" value="<?= $option->text ?>">                               
-                                <button type='button' id='delete-option'>X</button>
-                            </div>
+                            <div class="option-item"><input checked disabled type="<?= $question->type ?>"><input type="text" name="option-<?= $key + 1 ?>" value="<?= $option->text ?>"><button type='button' class="delete" id='delete-option'>X</button></div>
                             <?php endforeach; ?>
                             <?php } ?>
                         </div>
                         <div class="padded-small right">
                             <?php if ($id == null) { ?>
                             <button type="submit" id="submit-question" name="action" value="add">Add Question</button>
+                            <?php } else { ?>
+                            <button type="submit" id="submit-question" name="action" value="update">Update Question</button>
+                            &nbsp;&nbsp;
+                            <button type="submit" id="delete-question" name="action" value="delete">Delete Question</button>
                             <?php } ?>
                         </div>
                         <div class="warning center">
