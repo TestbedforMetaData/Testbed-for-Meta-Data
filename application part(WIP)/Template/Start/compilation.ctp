@@ -4,13 +4,23 @@
 	</div>
 	<br>
 	<div class="questions-list">
-		<ul class="q-list">
-			<?php foreach($questions as $item):
-			echo "<li>";
-				echo "$item->text";
-			echo "</li>";
-			endforeach; ?>
-		</ul>  
+		<form method="post">
+			<?php 
+			foreach($questions as $item){
+				echo "$item->text <br>";
+				if($item->type_id != 1){
+					foreach($item->options as $key => $option):?>
+					<div class="input-list">
+						<input type="<?= $item->type ?>">
+						<span><?php echo $option->text ?></span>
+					</div>
+					<?php endforeach;
+				}else{
+					echo "<input type='text'> <br>";
+				}
+				echo "<br>";
+			} ?>
+		</form> 
 	</div>
 	<br>
 	<div class="navigation-buttons">
