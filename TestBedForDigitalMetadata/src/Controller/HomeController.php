@@ -14,6 +14,11 @@ class HomeController extends AppController {
         
         
     }
+    public function start() {        
+       
+        return $this->redirect(["controller" => "Start"]);        
+        
+    }
     
     public function login()
     {
