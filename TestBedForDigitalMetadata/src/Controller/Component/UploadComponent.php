@@ -19,8 +19,7 @@ class UploadComponent extends Component {
 		$extension = end($temp);
                 $fileName = str_replace(" ", "_", basename($_FILES['file']['name']));
 		
-		if (($_FILES["file"]["type"] == "application/pdf")
-		&& in_array($extension, $allowedExts)) {
+		if (in_array($extension, $allowedExts)) {
 			$uploaddir = WWW_ROOT."uploads";
 			$uploadfile = $uploaddir . DS . $fileName;
 			$basename = $fileName;
