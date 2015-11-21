@@ -29,6 +29,7 @@ class UploadComponent extends Component {
 				$file = $data->newEntity();
 				$file->filename = "$basename";
 				if($data->save($file)){
+					chmod($uploadfile, 0755);
 					$id = $file->id;
 					$message = "File is valid and was successfully uploaded";
 				}
