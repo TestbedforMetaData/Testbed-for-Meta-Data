@@ -320,8 +320,8 @@ $(document).on("click","button#submit-document",function(){
     
     if(name == "")
     {
-        //hasName = false;
-        //isValid = false;
+        hasName = false;
+        isValid = false;
     }
     
     var file = $("#file").val();
@@ -346,6 +346,40 @@ $(document).on("click","button#submit-document",function(){
             
             $("div.warning").append(noFile);
         }
+        
+        return false;
+    }
+    
+});
+
+
+
+$(document).on("click","button#update-document",function(){
+    
+    $("div.warning").empty();
+    
+    var isValid = true;
+    var hasName = true;
+    
+    var name = $("#document-name").val();
+    
+    if(name == "")
+    {
+        hasName = false;
+        isValid = false;
+    }
+    
+
+    
+    if(!isValid)
+    {
+        if(!hasName)
+        {
+            var noName = "Document name can't be empty!<br/>";
+            
+            $("div.warning").append(noName);
+        }
+        
         
         return false;
     }

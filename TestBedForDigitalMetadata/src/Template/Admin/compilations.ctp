@@ -69,6 +69,11 @@
                             <?php endforeach; ?>
                             <?php } ?>
                         </div>
+                        <?php if ($id != null) { ?>
+                        <div class="padded-small">
+                            <input type="checkbox" id="compilation-active" name="compilation-active" class="full-width" <?php if($compilation->is_active == 1){echo "checked";} ?>><span>Compilation is active</span>
+                        </div>
+                        <?php } ?>
                         <div class="padded-small right">
                             <?php if ($id == null) { ?>
                             <button type="submit" id="submit-compilation" name="action" value="add">Add Compilation</button>

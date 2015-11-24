@@ -91,7 +91,27 @@ class AdminController extends AppController {
         
        if($this->request->is("post"))
 	{
-            $message = $this->Upload->processUpload();
+           $action = $this->request->data("action");
+           
+           $name = $this->request->data("document-name");
+           
+           if($action == "add")
+           {
+               $message = $this->Upload->processUpload($name);
+           }
+           else if ($action == "delete")
+           {
+               $message = $this->Upload->deleteDocument($id);
+               
+               return $this->redirect(["action" => "documents"]);
+           }
+           else if ($action == "update")
+           {
+               $message = $this->Upload->updateDocument($id,$name);
+           }
+           
+           
+            
 	}
         
         $uploads = TableRegistry::get("uploads");
@@ -101,6 +121,7 @@ class AdminController extends AppController {
             $document = $uploads->get($id);
             
             $this->set("document",$document);
+            $this->set("active",$document->active);
         }
         
         $this->set("uploads",$uploads->find()->toArray());
@@ -247,6 +268,7 @@ class AdminController extends AppController {
            $question = $questions->get($id);
 
            $this->set("question",$question);
+           $this->set("active",$question->active);
        }
        
        
@@ -332,11 +354,21 @@ class AdminController extends AppController {
            {
                $name = $this->request->data("compilation-name");
                
+               $compActive = $this->request->data("compilation-active");
+               
+               $active = 0;
+               
+               if($compActive == "on")
+               {
+                   $active = 1;
+               }
+               
                $compilation = $compilations->get($id);
                
                $questionOptions = $question->options;
                
                $compilation->name = $name;
+               $compilation->is_active = $active;
 
                $parts = $compilationParts->find()->where(["compilation_id" => $compilation->id])->order("visible_order")->toArray();
 
@@ -427,10 +459,96 @@ class AdminController extends AppController {
 
 
 
-    public function answers() {
+    public function answers($id = null) {
         
-       
+        $subjects = TableRegistry::get("Subjects");
+        $answers = TableRegistry::get("Answers");
         
+        $displayAnswers = array();
+        
+        if($id != null)
+        {
+        $subjectAnswers = $answers->find()->where(["subject_id" => $id])->order("visible_order")->toArray(); 
+        
+        foreach($subjectAnswers as $item)
+        {
+            $part = new \stdClass();
+            
+            $question = TableRegistry::get("Questions")->get($item->question_id);
+            
+            $part->text = $question->text;
+            $part->order = $item->visible_order;
+            
+            if($item->answer_text != "")
+            {
+                $part->type = "text";
+                $part->answer_text = $item->answer_text;
+            }
+            else if($item->is_multiple == 0)
+            {
+                $part->type = "radio";
+                $part->options = array();
+                
+                foreach($question->options as $optionItem)
+                {
+                    $option = new \stdClass();
+                    
+                    $option->text = $optionItem->text;
+                    
+                    if($optionItem->id == $item->answer_option_id)
+                    {
+                        $option->checked = true;
+                    }
+                    else
+                    {
+                        $option->checked = false;
+                    }
+                    
+                    array_push($part->options,$option);
+                }
+            }
+            else
+            {
+                $answerMultiple = TableRegistry::get("Multiple_Answers")->find()->where(["answer_id" => $item->id])->toArray();
+                
+                $answerOptions = array();
+                
+                foreach($answerMultiple as $i)
+                {
+                    array_push($answerOptions, $i->option_id);
+                }
+                
+                $part->type = "checkbox";
+                
+                $part->options = array();
+                
+                foreach($question->options as $optionItem)
+                {
+                    $option = new \stdClass();
+                    
+                    $option->text = $optionItem->text;
+                    
+                    if(in_array($optionItem->id, $answerOptions))
+                    {
+                        $option->checked = true;
+                    }
+                    else
+                    {
+                        $option->checked = false;
+                    }
+                    
+                    array_push($part->options,$option);
+                }
+            }
+            
+            array_push($displayAnswers, $part);
+        }
+        }
+        
+        
+        $this->set("id",$id);
+        $this->set("subjects",$subjects->find());
+        $this->set("answers",$displayAnswers);
     }
     
     public function changePassword()

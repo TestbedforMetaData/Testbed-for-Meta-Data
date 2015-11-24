@@ -38,6 +38,11 @@
                     </div>
                     <?php } else{ ?>
                     <form method="post">
+                        <?php if($id != null && $active) { ?>
+                        <div class="warning center">
+                            This question is part of an active compilation and can not be modified.
+                        </div>
+                        <?php } ?>
                         <div id="question" class="wide">
                         <div class="padded-small">
                             <input type="text" placeholder="Question Name" id="question-name" name="question-name" class="full-width" value="<?php if($id != null){echo $question->name;} ?>">
@@ -69,15 +74,17 @@
                             <?php endforeach; ?>
                             <?php } ?>
                         </div>
-                        <div class="padded-small right">
-                            <?php if ($id == null) { ?>
-                            <button type="submit" id="submit-question" name="action" value="add">Add Question</button>
-                            <?php } else { ?>
-                            <button type="submit" id="submit-question" name="action" value="update">Update Question</button>
-                            &nbsp;&nbsp;
-                            <button type="submit" id="delete-question" name="action" value="delete">Delete Question</button>
+                            <?php if($id != null && !$active){ ?>
+                            <div class="padded-small right">
+                                <?php if ($id == null) { ?>
+                                <button type="submit" id="submit-question" name="action" value="add">Add Question</button>
+                                <?php } else { ?>
+                                <button type="submit" id="submit-question" name="action" value="update">Update Question</button>
+                                &nbsp;&nbsp;
+                                <button type="submit" id="delete-question" name="action" value="delete">Delete Question</button>
+                                <?php } ?>
+                            </div>
                             <?php } ?>
-                        </div>
                         <div class="warning center">
                             <?= $message ?>
                         </div>

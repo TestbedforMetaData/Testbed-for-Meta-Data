@@ -35,6 +35,27 @@ class Question extends Entity {
         }
     }
     
-
+    protected function _getActive()
+    {
+        $compilationsTable = \Cake\ORM\TableRegistry::get("Compilations");
+        
+        $compilationPartsTable = \Cake\ORM\TableRegistry::get("Compilation_Parts");
+        
+        $compilationParts = $compilationPartsTable->find()->where(["part_id" => $this->id,"type" => "Question"])->toArray();
+        
+        $active = false;
+        
+        foreach($compilationParts as $item)
+        {
+            $compilation = $compilationsTable->get($item->compilation_id);
+            
+            if($compilation->is_active == 1)
+            {
+                $active = true;
+            }
+        }
+        
+        return $active;
+    }
 }
 

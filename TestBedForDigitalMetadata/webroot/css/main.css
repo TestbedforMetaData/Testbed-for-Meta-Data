@@ -379,3 +379,17 @@ button.delete:hover{
     background-color: #FFFFFF;
     color:#b82720;
 }
+
+
+div.answer-div{
+    padding: 3px 3px 10px 3px;
+}
+
+div.answer-div div.answer-question{
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+div.answer-div div.answer-text{
+    padding: 3px 3px 3px 10px;
+}

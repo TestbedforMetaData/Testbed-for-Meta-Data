@@ -1,0 +1,12 @@
+1. For answers, I created three tables : subjects, answers, multiple_answers.
+2. subjects table contains the name of the user using the application. I'm thinking it can come from a textbox at the beggining of application.
+3. answers table contains the answers given by the subject.
+	a. question_id : id of the question.
+	b. answer_text : if the question type is text, answer will be written here, otherwise it will be empty.
+	c. answer_option_id : if the question type is radio, this will contain the id of the selected option, otherwise it will be -1.
+	d. is_multiple : if the question type is checkbox, this will be 1, otherwise 0.
+	e. subect_id : id of the subject.
+	f. visible_order : order with which the admin see it in answers page.
+4. multiple_answers table contains the answer options of checkbox questions.
+	a. option_id : id of the selected options.
+	b. answer_id : id of the answer it belongs to. 

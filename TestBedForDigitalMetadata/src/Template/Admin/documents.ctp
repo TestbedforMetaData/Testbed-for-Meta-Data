@@ -36,24 +36,36 @@
                     <div class="warning center">
                         <?= $message ?>
                     </div>
-                    <?php } else if ($id == null) { ?>
+                    <?php } else { ?>
                     <form method="post" enctype="multipart/form-data">
+                        <?php if($id != null && $active) { ?>
+                        <div class="warning center">
+                            This document is part of an active compilation and can not be modified.
+                        </div>
+                        <?php } ?>
                         <div id="document" class="wide">
-                            <!--<div class="padded-small">
-                                <input type="text" placeholder="Document Name" id="document-name" name="document-name" class="full-width">
-                            </div>-->
+                            <div class="padded-small">
+                                <input type="text" placeholder="Document Name" id="document-name" name="document-name" class="full-width" value="<?php if($id != null){echo $document->name;} ?>">
+                            </div>
                             <div class="padded-small">
                                 <input type="file" name="file" id="file">
                             </div>
+                            <?php if ($id != null){ ?>
+                            <embed src="../../uploads/<?= $document->filename ?>" width="700" height="800" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
                             <div class="padded-small right">
-                                <button type="submit" id="submit-document">Add Document</button>
+                                <?php if(!$active) { ?>
+                                <button type="submit" name="action" value="update" id="update-document">Update Document</button>&nbsp;&nbsp;&nbsp;<button type="submit" name="action" value="delete" id="delete-document">Delete Document</button>
+                                <?php } ?>
+                            </div>   
+                            <?php } else { ?>
+                            <div class="padded-small right">
+                                <button type="submit" name="action" value="add" id="submit-document">Add Document</button>
                             </div>
+                            <?php } ?>
                             <div class="warning center">
                             </div>
                         </div>
                     </form>
-                    <?php } else { ?>
-                    <embed src="../../uploads/<?= $document->filename ?>" width="700" height="800" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
                     <?php } ?>
                 </td>
             </tr>
