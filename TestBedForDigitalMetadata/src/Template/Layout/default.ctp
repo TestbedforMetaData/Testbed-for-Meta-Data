@@ -26,7 +26,9 @@ $description = 'Testbed for Digital Metadata';
     </title>
 
     <?= $this->Html->css('main.css') ?>
+    <?= $this->Html->css('jquery.steps.css') ?>
     <?= $this->Html->script('jquery-1.10.2.min') ?>
+    <?= $this->Html->script('jquery.steps.min.js') ?>
     <?= $this->Html->script('mainScript') ?>
 
     <?= $this->fetch('meta') ?>

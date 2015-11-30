@@ -65,7 +65,7 @@ embed{
 
 div.container{
     margin: auto;
-    max-width: 1000px;
+    width: 70%;
 }
 
 header{
@@ -392,4 +392,28 @@ div.answer-div div.answer-question{
 
 div.answer-div div.answer-text{
     padding: 3px 3px 3px 10px;
+}
+.content {
+    margin: 20px 0;
+}
+.clearer{
+	clear:both;
+	}
+.input-list {
+    clear: both;
+    display: block;
+}
+.input-list label,.input-list input {
+    float:left;
+}
+.question {
+    clear: both;
+    display: block;
+    margin: 20px 10px 40px;
+}
+h3 {
+    clear: both;
+    display: block;
+    font-size: 1.3em;
+    margin: 12px 0;
 }
