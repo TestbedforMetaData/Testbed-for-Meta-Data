@@ -61,6 +61,7 @@ td{
 embed{
     margin-top: 10px;
     border: 1px solid #999999;
+    width: 100%;
 }
 
 div.container{

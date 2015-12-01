@@ -196,6 +196,8 @@ class AdminController extends AppController {
            }
            else if ($action == "update")
            {
+               $this->loadComponent("Update");
+               
                $name = $this->request->data("question-name");
                $text = $this->request->data("question-text");
                $type = $this->request->data("question-type");
@@ -210,32 +212,95 @@ class AdminController extends AppController {
                $question->text = $text;
                $question->type_id = $type;
                
-               foreach($questionOptions as $item)
-               {
-                   $optionsTable->delete($item);
-               }
-               
+
                $options = array();
+               
+               $order = 1;
                
                foreach($this->request->data as $key => $value)
                {
+                   
+                   
                    if (strpos($key,"option-") !== false) 
                    {
-                       array_push($options, $value);
+                       $index = str_replace("option-", "", $key);
+                       
+                       $optionId = $this->request->data("id-".$index);
+                       
+                       $obj = new \stdClass();
+                       
+                       $obj->id = $optionId;
+                       $obj->visibleOrder = $order++;
+                       $obj->text = $value;
+                       
+                       array_push($options, $obj);
                    }
                }
                
-               foreach($options as $key => $item)
-                {
-                    $addOption = $optionsTable->newEntity();
+               $checkAddRemove = $this->Update->checkUpdate($options,$questionOptions);
+               
+               if($checkAddRemove)
+               {
+                   foreach($questionOptions as $option)
+                   {
+                       $newOption = null;
+                       
+                       foreach($options as $item)
+                       {
+                           if($item->id == $option->id)
+                           {
+                               $newOption = $item;
+                           }
+                       }
+                       
+                       $option->text = $newOption->text;
+                       $option->visible_order = $newOption->visibleOrder;
+                       
+                       $optionsTable->save($option);
+                   }
+               }
+               else
+               {
+                   foreach($questionOptions as $option)
+                   {
+                       $newOption = null;
+                       
+                       foreach($options as $item)
+                       {
+                           if($item->id == $option->id)
+                           {
+                               $newOption = $item;
+                           }
+                       }
+                       
+                       if($newOption != null)
+                       {
+                            $option->text = $newOption->text;
+                            $option->visible_order = $newOption->visibleOrder;
 
-                    $addOption->text = $item;
-                    $addOption->question_id = $question->id;
-                    $addOption->visible_order = $key + 1;
+                            $optionsTable->save($option);
+                       }
+                       else
+                       {
+                           $optionsTable->delete($option);
+                       }
+                   }
+                   
+                   foreach($options as $item)
+                   {
+                       if($item->id == -1)
+                       {
+                            $addOption = $optionsTable->newEntity();
+
+                            $addOption->visible_order = $item->visibleOrder;
+                            $addOption->text = $item->text;
+                            $addOption->question_id = $question->id;
                             
-                    $optionsTable->save($addOption);
-                }
-                        
+                            $optionsTable->save($addOption);
+                       }
+                   }
+               }
+               
                 $questions->save($question);
                 
                 $message = "Question is updated successfully";
@@ -352,73 +417,134 @@ class AdminController extends AppController {
            }
            else if ($action == "update")
            {
-               $name = $this->request->data("compilation-name");
+               $this->loadComponent("Update");
                
-               $compActive = $this->request->data("compilation-active");
+                $name = $this->request->data("compilation-name");
                
-               $active = 0;
+                $compActive = $this->request->data("compilation-active");
                
-               if($compActive == "on")
+                $active = 0;
+               
+                if($compActive == "on")
+                {
+                    $active = 1;
+                }
+               
+                $compilation = $compilations->get($id);
+               
+                $questionOptions = $question->options;
+               
+                $compilation->name = $name;
+                $compilation->is_active = $active;
+
+                $parts = $compilationParts->find()->where(["compilation_id" => $compilation->id])->order("visible_order")->toArray();
+
+               
+                $newParts = array();
+               
+                $order = 1;
+                   
+                foreach($this->request->data as $key => $value)
+                {
+                    if (strpos($key,"document-") !== false && strpos($key,"document-id-") === false) 
+                    {
+                        $index = str_replace("document-", "", $key);
+                         
+                        $mainId = $this->request->data("document-id-".$index);
+                            
+                        $obj = new \stdClass();
+                            
+                        $obj->type = "Document";
+                        $obj->id = $mainId;
+                        $obj->partId = $value;
+                        $obj->visibleOrder = $order++;
+                            
+                        array_push($newParts, $obj);
+                    }
+                    else if (strpos($key,"question-") !== false && strpos($key,"question-id-") === false) 
+                    {
+                        $index = str_replace("question-", "", $key);
+                           
+                        $mainId = $this->request->data("question-id-".$index);
+                           
+                        $obj = new \stdClass();
+                            
+                        $obj->type = "Question";
+                        $obj->id = $mainId;
+                        $obj->partId = $value;
+                        $obj->visibleOrder = $order++;
+                            
+                        array_push($newParts, $obj);
+                    }
+                }
+                
+                $checkAddRemove = $this->Update->checkUpdate($newParts,$parts);
+               
+                if($checkAddRemove)
                {
-                   $active = 1;
+                   foreach($parts as $part)
+                   {
+                       $newPart = null;
+                       
+                       foreach($newParts as $item)
+                       {
+                           if($item->id == $part->id)
+                           {
+                               $newPart = $item;
+                           }
+                       }
+
+                       $part->visible_order = $newPart->visibleOrder;
+                       
+                       $compilationParts->save($part);
+                   }
+               }
+               else
+               {
+                   foreach($parts as $part)
+                   {
+                       $newPart = null;
+                       
+                       foreach($newParts as $item)
+                       {
+                           if($item->id == $part->id)
+                           {
+                               $newPart = $item;
+                           }
+                       }
+                       
+                       if($newPart != null)
+                       {
+                            $part->visible_order = $newPart->visibleOrder;
+                       
+                            $compilationParts->save($part);
+                       }
+                       else
+                       {
+                           $compilationParts->delete($part);
+                       }
+                   }
+                   
+                   foreach($newParts as $item)
+                   {
+                       if($item->id == -1)
+                       {
+                            $addPart = $compilationParts->newEntity();
+
+                            $addPart->visible_order = $item->visibleOrder;
+                            $addPart->compilation_id = $compilation->id;
+                            $addPart->type = $item->type;
+                            $addPart->part_id = $item->partId;
+                            
+                            $compilationParts->save($addPart);
+                       }
+                   }
                }
                
-               $compilation = $compilations->get($id);
-               
-               $questionOptions = $question->options;
-               
-               $compilation->name = $name;
-               $compilation->is_active = $active;
+                $compilations->save($compilation);
+                
+                $message = "Compilation is updated successfully";
 
-               $parts = $compilationParts->find()->where(["compilation_id" => $compilation->id])->order("visible_order")->toArray();
-
-                   foreach($parts as $item)
-                   {
-                       $compilationParts->delete($item);
-                   }
-                   
-                   foreach($this->request->data as $key => $value)
-                   {
-                       if (strpos($key,"document-") !== false) 
-                       {
-                            $obj = new \stdClass();
-                            
-                            $obj->type = "Document";
-                            $obj->id = $value;
-                            
-                            array_push($partArray, $obj);
-                       }
-                       else if (strpos($key,"question-") !== false) 
-                       {
-                            $obj = new \stdClass();
-                            
-                            $obj->type = "Question";
-                            $obj->id = $value;
-                            
-                            array_push($partArray, $obj);
-                       }
-                   }
-                   
-                   if($compilations->save($compilation))
-               {
-                   foreach ($partArray as $key => $item)
-                   {
-                       $compPart = $compilationParts->newEntity();
-                       
-                       $compPart->compilation_id = $compilation->id;
-                       $compPart->part_id = $item->id;
-                       $compPart->type = $item->type;
-                       $compPart->visible_order = $key + 1;
-                       
-                       $compilationParts->save($compPart);
-                   }
-                   
-                   $message = "Compilation is updated successfully";
-               }
-               
-              
-                        
-               
            }
            else if ($action == "delete")
            {

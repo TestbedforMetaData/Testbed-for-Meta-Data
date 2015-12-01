@@ -42,6 +42,7 @@ $description = 'Testbed for Digital Metadata';
             <?php if($loggedOn){ ?>
             <a class="menu" id="logout" href="<?= $this->Url->build(["controller" => "User","action" => "logout"]) ?>">Log out</a>
             <a class="menu" href="<?= $this->Url->build(["controller" => "Admin","action" => "changePassword"]) ?>">Change Password</a>
+            <a class="menu" href="<?= $this->Url->build(["controller" => "Admin","action" => "user"]) ?>">Users</a>
             <?php } ?>
         </div>
     </header>

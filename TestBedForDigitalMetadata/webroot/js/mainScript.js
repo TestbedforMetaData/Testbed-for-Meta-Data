@@ -196,10 +196,13 @@ $(document).on("click","button#add-option",function(){
         
         var optionText = $("<input type='text' name='option-" + (count + 1) + "'>");
         
+        var hiddenId = $("<input type='hidden' name='id-" + (count + 1) + "' value='-1'>");
+        
         var deleteButton = $("<button type='button' class='delete' id='delete-option'>X</button>");
          
         $(divOption).append(radio);
         $(divOption).append(optionText);
+        $(divOption).append(hiddenId);
         $(divOption).append(deleteButton);
         
         $("div#options").append(divOption);
@@ -240,6 +243,8 @@ $(document).on("change","select#add-document",function(){
     
     var id = $(this).val();
     
+    var index = $("div.comp-item").length + 1;
+    
     if(id != -1)
     {
         var text = $("select#add-document option:selected").text();
@@ -248,12 +253,15 @@ $(document).on("change","select#add-document",function(){
         
         var spanDocument = $("<span>" + text + "</span>");
         
-        var hiddenId = $("<input type='hidden' name='document-" + id + "' value='" + id + "'>");
+        var hiddenId = $("<input type='hidden' name='document-" + index + "' value='" + id + "'>");
+        
+        var hiddenMainId = $("<input type='hidden' name='document-id-" + index + "' value='-1'>");
         
         var deleteButton = $("<button type='button' class='delete' id='remove-document'>X</button>");
         
         $(divDocument).append(spanDocument);
         $(divDocument).append(hiddenId);
+        $(divDocument).append(hiddenMainId);
         $(divDocument).append(deleteButton);
         
         $("div#items").append(divDocument);
@@ -269,6 +277,8 @@ $(document).on("change","select#add-document",function(){
     
     var id = $(this).val();
     
+    var index = $("div.comp-item").length + 1;
+    
     if(id != -1)
     {
         var text = $("select#add-question option:selected").text();
@@ -277,12 +287,15 @@ $(document).on("change","select#add-document",function(){
         
         var spanQuestion = $("<span>" + text + "</span>");
         
-        var hiddenId = $("<input type='hidden' name='question-" + id + "' value='" + id + "'>");
+        var hiddenId = $("<input type='hidden' name='question-" + index + "' value='" + id + "'>");
+        
+        var hiddenMainId = $("<input type='hidden' name='question-id-" + index + "' value='-1'>");
         
         var deleteButton = $("<button type='button' class='delete' id='remove-question'>X</button>");
         
         $(divQuestion).append(spanQuestion);
         $(divQuestion).append(hiddenId);
+        $(divQuestion).append(hiddenMainId);
         $(divQuestion).append(deleteButton);
         
         $("div#items").append(divQuestion);

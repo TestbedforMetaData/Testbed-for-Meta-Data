@@ -21,20 +21,24 @@ class Compilation extends Entity {
         
         $parts = array();
         
+        $index = 1;
+        
         foreach ($compilationParts as $item)
         {
             $obj = new \stdClass();
             
-            $obj->id = $item->part_id;
-            $obj->type = $item->type;
+            $obj->index = $index++;
+            $obj->id = $item->id;
+            $obj->partId = $item->part_id;
+            $obj->type = strtolower($item->type);
             
             if($item->type == "Document")
             {
-                $obj->text = $uploadsTable->get($obj->id)->name;
+                $obj->text = $uploadsTable->get($obj->partId)->name;
             }
             else if($item->type == "Question")
             {
-                $obj->text = $questionsTable->get($obj->id)->text;
+                $obj->text = $questionsTable->get($obj->partId)->text;
             }
             
             array_push($parts, $obj);

@@ -39,8 +39,8 @@
                     <?php } else { ?>
                     <form method="post" enctype="multipart/form-data">
                         <?php if($id != null && $active) { ?>
-                        <div class="warning center">
-                            This document is part of an active compilation and can not be modified.
+                        <div class="warning">
+                            This document is part of an active compilation and can not be deleted.
                         </div>
                         <?php } ?>
                         <div id="document" class="wide">
@@ -51,11 +51,9 @@
                                 <input type="file" name="file" id="file">
                             </div>
                             <?php if ($id != null){ ?>
-                            <embed src="../../uploads/<?= $document->filename ?>" width="700" height="800" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
+                            <embed src="../../uploads/<?= $document->filename ?>"  height="800" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
                             <div class="padded-small right">
-                                <?php if(!$active) { ?>
-                                <button type="submit" name="action" value="update" id="update-document">Update Document</button>&nbsp;&nbsp;&nbsp;<button type="submit" name="action" value="delete" id="delete-document">Delete Document</button>
-                                <?php } ?>
+                                <button type="submit" name="action" value="update" id="update-document">Update Document</button>&nbsp;&nbsp;&nbsp;<?php if(!$active){ ?><button type="submit" name="action" value="delete" id="delete-document">Delete Document</button><?php } ?>
                             </div>   
                             <?php } else { ?>
                             <div class="padded-small right">

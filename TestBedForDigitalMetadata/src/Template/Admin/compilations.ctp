@@ -61,8 +61,8 @@
                             <?php if($id != null) { ?>
                             <?php foreach($compilation->parts as $key => $item): ?>
                             
-                            <div class='<?php if($item->type == "Question"){echo "question-item";}else{echo "document-item";} ?> comp-item'>
-                                <span><?= $item->text ?></span><input type='hidden' name='<?php if($item->type == "Question"){echo "question-".$item->id;}else{echo "document-".$item->id;} ?>' value='<?= $item->id ?>'><button type='button' class="delete" id='remove-<?php if($item->type == "Question"){echo "question";}else{echo "document";} ?>'>X</button>
+                            <div class='<?= $item->type."-item" ?> comp-item'>
+                                <span><?= $item->text ?></span><input type='hidden' name='<?= $item->type."-".$item->index ?>' value='<?= $item->partId ?>'><input type="hidden" name="<?= $item->type."-id-".$item->index ?>" value="<?= $item->id ?>"><button type='button' class="delete" id='remove-<?= $item->type ?>'>X</button>
                             </div>
                             
                            

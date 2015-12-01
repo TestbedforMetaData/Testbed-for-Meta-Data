@@ -20,7 +20,7 @@ class StartController extends AppController {
 		$q = 0;
 		$questions = array();
 		$cP = TableRegistry::get("CompilationParts");
-		$compilation = $cP->find()->where(["compilation_id" => $id, "visible_order >" => $order-1])->toArray();
+		$compilation = $cP->find()->where(["compilation_id" => $id, "visible_order >" => $order-1])->order("visible_order")->toArray();
 		$prevcomp = $cP->find()->where(["compilation_id" => $id, "type" => "Document", "visible_order <" => $order])->order(["id" => "DESC"])->first();
 		if($prevcomp != null){
 			$prevdoc = $prevcomp->visible_order;
