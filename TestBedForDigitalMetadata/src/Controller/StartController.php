@@ -8,7 +8,7 @@ class StartController extends AppController {
 	public function index() 
 	{
 		$c = TableRegistry::get("compilations");
-		$comp = $c->find('all')->order('rand()')->first();
+		$comp = $c->find()->where(["is_active" => 1])->order('rand()')->first();
 		$this->redirect(['controller'=>'start','action'=>'compilation',$comp->id,1]);
 		
 	}
