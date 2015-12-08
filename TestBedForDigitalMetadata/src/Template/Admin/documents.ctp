@@ -3,6 +3,9 @@
 </div>
 <div class="tab-container">
     <div class="tab-menu">
+        <a href="<?= $this->Url->build(["action" => "index"]) ?>">
+            Instructions
+        </a>
         <span>
             Documents
         </span>

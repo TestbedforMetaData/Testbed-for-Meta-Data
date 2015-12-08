@@ -418,3 +418,11 @@ h3 {
     font-size: 1.3em;
     margin: 12px 0;
 }
+.question textarea{
+    width: 500px;
+}
+
+input#submit-user{
+    width: 450px;
+}
+

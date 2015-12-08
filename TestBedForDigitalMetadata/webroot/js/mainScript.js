@@ -532,3 +532,18 @@ $(document).on("click","button#submit-question",function(){
     }
     
 });
+
+$(document).on("click","div.actions a[href='#finish']",function(){
+   
+   if($("input#submit-user").val() === "")
+   {
+       $("div#user-name-valid").text("You must enter a username");
+   }
+   else
+   {
+       $("form#answer-form").submit();
+   }
+   
+    
+    
+});

@@ -78,8 +78,24 @@ class AdminController extends AppController {
     
     public function index() {
         
-       
+        $adminTexts = TableRegistry::get("admin_texts");
         
+       if($this->request->is("post"))
+       {
+           $text = $this->request->data("instruction-text");
+           
+           $newText = $adminTexts->find()->where(["name" => "instructions"])->first();
+           
+           $newText->text = $text;
+           
+           $adminTexts->save($newText);
+       }
+        
+        
+        $instructions = $adminTexts->find()->where(["name" => "instructions"])->first()->text;
+            
+        
+        $this->set("instructions",$instructions);
     }
     
     
