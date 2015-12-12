@@ -26,8 +26,8 @@
                     <ul class="link-list">
                         <?php foreach($uploads as $item): ?>
                         <li>
-                            <a <?php if($id == $item->id){echo "class=\"selected\"" ;} ?> href="<?= $this->Url->build(["action" => "documents",$item->id]) ?>">
-                                <?= $item->name ?>
+                            <a title="<?= $item->filename ?>" <?php if($id == $item->id){echo "class=\"selected\"" ;} ?> href="<?= $this->Url->build(["action" => "documents",$item->id]) ?>">
+                                <?= $item->filename ?>
                             </a>
                         </li>
                         <?php endforeach; ?>

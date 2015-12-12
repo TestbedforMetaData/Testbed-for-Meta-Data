@@ -241,7 +241,7 @@ ul.link-list{
     border:1px solid #CCCCCC;
     width: 220px;
     height: 470px;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 ul.link-list a{
