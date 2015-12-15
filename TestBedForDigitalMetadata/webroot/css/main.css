@@ -423,3 +423,12 @@ input#submit-user{
     width: 450px;
 }
 
+a.small-link{
+    font-size: 11px;
+    color: #003CAE;
+}
+
+a.small-link:hover{
+    text-decoration: underline;
+}
+

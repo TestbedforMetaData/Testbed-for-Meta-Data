@@ -10,7 +10,12 @@ class HomeController extends AppController {
 
     public function index() {
         
-       
+       $user = $this->Auth->user();
+        
+            if($user == null || $user["role"] != 1)
+            {
+                return $this->redirect(["controller" => "Home","action" => "login"]);
+            }
         
         
     }

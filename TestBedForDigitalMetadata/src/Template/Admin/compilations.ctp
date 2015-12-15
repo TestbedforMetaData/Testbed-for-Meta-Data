@@ -43,8 +43,13 @@
                     <form method="post">
                     <div id="compilation" class="wide">
                         <div class="padded-small">
-                            <input type="text" placeholder="Compilation Name" id="compilation-name" name="compilation-name" class="full-width" value="<?= $compilation->name ?>">
+                            <input type="text" placeholder="Compilation Name" id="compilation-name" name="compilation-name" class="full-width" value="<?php if($id != null) {echo $compilation->name;} ?>">
                         </div>
+                        <?php if($id != null) { ?>
+                        <div class="padded-small">
+                            <a class="small-link" href="<?= $url ?>"><?= $url ?></a> 
+                        </div>
+                        <?php } ?>
                         <div class="padded-small">
                             <select id="add-document">
                                 <option value="-1">Select Document</option>

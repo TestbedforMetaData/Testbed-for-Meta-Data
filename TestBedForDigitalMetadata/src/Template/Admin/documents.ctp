@@ -54,7 +54,9 @@
                                 <input type="file" name="file" id="file">
                             </div>
                             <?php if ($id != null){ ?>
-                            <embed src="../../uploads/<?= $document->filename ?>"  height="800" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
+                            <object data="../../uploads/<?= $document->filename ?>" type="application/pdf" width="100%" height="800px">	 
+                                <p>It appears you don't have a PDF plugin for this browser.</p>					  
+                            </object>
                             <div class="padded-small right">
                                 <button type="submit" name="action" value="update" id="update-document">Update Document</button>&nbsp;&nbsp;&nbsp;<?php if(!$active){ ?><button type="submit" name="action" value="delete" id="delete-document">Delete Document</button><?php } ?>
                             </div>   

@@ -7,14 +7,41 @@ class StartController extends AppController {
 	
 	public function index() 
 	{
-		$c = TableRegistry::get("compilations");
-		$comp = $c->find()->where(["is_active" => 1])->order('rand()')->first();
-		$this->redirect(['controller'=>'start','action'=>'compilation',$comp->id]);
+            $user = $this->Auth->user();
+        
+            if($user == null || $user["role"] != 1)
+            {
+                return $this->redirect(["controller" => "Home","action" => "login"]);
+            }
+            
+            $c = TableRegistry::get("compilations");
+            $comp = $c->find()->where(["is_active" => 1])->order('rand()')->first();
+            $this->redirect(['controller'=>'start','action'=>'compilation',$comp->url_key]);
 		
 	}
 	
-	public function compilation($id)
+	public function compilation($key)
 	{
+                $compilations = TableRegistry::get("Compilations");
+            
+                $comp = $compilations->find()->where(["url_key" => $key])->first();
+                
+                if($comp == null)
+                {
+                    $user = $this->Auth->user();
+        
+                    if($user == null || $user["role"] != 1)
+                    {
+                        return $this->redirect(["controller" => "Home","action" => "login"]);
+                    }
+                    else
+                    {
+                        return $this->redirect(["controller" => "Start","action" => "index"]);
+                    }
+                }
+                
+                $id = $comp->id;
+            
 		$uploads = TableRegistry::get("uploads");
 		$loadquestions = TableRegistry::get("questions");
 

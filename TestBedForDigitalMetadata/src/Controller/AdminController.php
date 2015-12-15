@@ -14,7 +14,7 @@ class AdminController extends AppController {
         
         if($user == null || $user["role"] != 1)
         {
-            return $this->redirect(["controller" => "Home"]);
+            return $this->redirect(["controller" => "Home","action" => "login"]);
         }
     }
     
@@ -382,7 +382,7 @@ class AdminController extends AppController {
            {
                foreach($this->request->data as $key => $value)
                    {
-                       if (strpos($key,"document-") !== false) 
+                       if (strpos($key,"document-") !== false && $value != -1) 
                        {
                             $obj = new \stdClass();
                             
@@ -391,7 +391,7 @@ class AdminController extends AppController {
                             
                             array_push($partArray, $obj);
                        }
-                       else if (strpos($key,"question-") !== false) 
+                       else if (strpos($key,"question-") !== false && $value != -1) 
                        {
                             $obj = new \stdClass();
                             
@@ -408,6 +408,8 @@ class AdminController extends AppController {
                $addCompilation = $compilations->newEntity();
                
                $addCompilation->name = $name;
+               
+               $addCompilation->url_key = md5(uniqid());
                
                if($compilations->save($addCompilation))
                {
@@ -585,6 +587,14 @@ class AdminController extends AppController {
            $compilation = $compilations->get($id);
            
            $this->set("compilation",$compilation);
+           
+           $currentUrl = \Cake\Routing\Router::url(["controller" => "admin","action" => "index"],true);
+           
+           $domain = explode("admin", $currentUrl)[0];
+           
+           $keyUrl = $domain."start/compilation/".$compilation->url_key;
+           
+           $this->set("url",$keyUrl);
        }
        
        
