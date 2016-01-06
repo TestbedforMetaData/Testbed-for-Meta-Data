@@ -15,7 +15,7 @@ class UploadController extends AppController {
         
         $user = $this->Auth->user();
         
-        if($user == null || $user["role"] != 1)
+        if($user == null)
         {
             return $this->redirect(["controller" => "Home"]);
         }

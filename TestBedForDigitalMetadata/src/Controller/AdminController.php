@@ -12,13 +12,20 @@ class AdminController extends AppController {
         
         $user = $this->Auth->user();
         
-        if($user == null || $user["role"] != 1)
+        if($user == null)
         {
             return $this->redirect(["controller" => "Home","action" => "login"]);
         }
     }
     
     public function user() {
+        
+        $authRole = $this->Auth->user()["role"];
+        
+        if($authRole != 1)
+        {
+            return $this->redirect(["controller" => "Home"]);
+        }
         
         $deleteMessage = "";
         $addMessage = "";

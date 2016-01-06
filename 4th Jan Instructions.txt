@@ -1,0 +1,4 @@
+* User table has a column "role". It can be 1 or 0.
+* 1 is the main admin, 0 are the added users.
+* In the old version, role 0 can only log on, but can't access anything.
+* I changed it so that, role 0 can access everything except adding and removing users.
