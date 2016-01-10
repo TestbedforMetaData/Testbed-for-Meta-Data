@@ -61,7 +61,7 @@
                             <select id="add-question">
                                 <option value="-1">Select Question</option>
                                 <?php foreach($questions as $item): ?>
-                                <option value="<?= $item->id ?>"><?= $item->text ?></option>
+                                <option value="<?= $item->id ?>"><?= $item->name ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -70,7 +70,7 @@
                             <?php foreach($compilation->parts as $key => $item): ?>
                             
                             <div class='<?= $item->type."-item" ?> comp-item'>
-                                <span><?= $item->text ?></span><input type='hidden' name='<?= $item->type."-".$item->index ?>' value='<?= $item->partId ?>'><input type="hidden" name="<?= $item->type."-id-".$item->index ?>" value="<?= $item->id ?>"><button type='button' class="delete" id='remove-<?= $item->type ?>'>X</button>
+                                <span><?= $item->name ?></span><input type='hidden' name='<?= $item->type."-".$item->index ?>' value='<?= $item->partId ?>'><input type="hidden" name="<?= $item->type."-id-".$item->index ?>" value="<?= $item->id ?>"><button type='button' class="delete" id='remove-<?= $item->type ?>'>X</button>
                             </div>
                             
                            

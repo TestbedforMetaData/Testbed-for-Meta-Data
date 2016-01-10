@@ -34,11 +34,11 @@ class Compilation extends Entity {
             
             if($item->type == "Document")
             {
-                $obj->text = $uploadsTable->get($obj->partId)->name;
+                $obj->name = $uploadsTable->get($obj->partId)->name;
             }
             else if($item->type == "Question")
             {
-                $obj->text = $questionsTable->get($obj->partId)->text;
+                $obj->name = $questionsTable->get($obj->partId)->name;
             }
             
             array_push($parts, $obj);
@@ -47,6 +47,8 @@ class Compilation extends Entity {
         return $parts;
         
     }
+    
+  
 
     
     
