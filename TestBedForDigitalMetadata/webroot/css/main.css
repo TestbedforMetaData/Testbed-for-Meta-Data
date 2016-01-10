@@ -412,8 +412,9 @@ div.answer-div div.answer-text{
 h3 {
     clear: both;
     display: block;
-    font-size: 1.3em;
+    font-size: 1.1em;
     margin: 12px 0;
+    font-weight: normal;
 }
 .question textarea{
     width: 500px;

@@ -468,8 +468,9 @@ $(document).on("click","button#submit-question",function(){
     }
     
     var text = $("#question-text").val();
+    var textTinyMCE = $("body#tinymce").html();
     
-    if(text == "")
+    if(text == "" && textTinyMCE == "")
     {
         hasText = false;
         isValid = false;
