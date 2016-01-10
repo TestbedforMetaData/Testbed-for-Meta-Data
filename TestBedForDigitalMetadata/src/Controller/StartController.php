@@ -16,7 +16,15 @@ class StartController extends AppController {
             
             $c = TableRegistry::get("compilations");
             $comp = $c->find()->where(["is_active" => 1])->order('rand()')->first();
-            $this->redirect(['controller'=>'start','action'=>'compilation',$comp->url_key]);
+            
+            if($comp == null)
+            {
+                return $this->redirect(["controller" => "Home","action" => "index"]);
+            }
+            else
+            {
+                $this->redirect(['controller'=>'start','action'=>'compilation',$comp->url_key]);
+            }
 		
 	}
 	
