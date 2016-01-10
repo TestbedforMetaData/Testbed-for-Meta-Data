@@ -622,12 +622,26 @@ class AdminController extends AppController {
         
         $subjects = TableRegistry::get("Subjects");
         $answers = TableRegistry::get("Answers");
+        $compilations = TableRegistry::get("Compilations");
         
         $displayAnswers = array();
+        
+        $compilation = null;
+        
+        $subjectName = "";
         
         if($id != null)
         {
         $subjectAnswers = $answers->find()->where(["subject_id" => $id])->order("visible_order")->toArray(); 
+        
+        $compId = $subjects->get($id)->comp_id;
+        
+        $subjectName = $subjects->get($id)->name;
+        
+        if($compId != null && $compId != 0)
+        {
+            $compilation = $compilations->get($compId);
+        }
         
         foreach($subjectAnswers as $item)
         {
@@ -708,6 +722,8 @@ class AdminController extends AppController {
         $this->set("id",$id);
         $this->set("subjects",$subjects->find());
         $this->set("answers",$displayAnswers);
+        $this->set("compilation",$compilation);
+        $this->set("subjectName",$subjectName);
     }
     
     public function changePassword()

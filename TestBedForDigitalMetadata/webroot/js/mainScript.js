@@ -547,3 +547,15 @@ $(document).on("click","div.actions a[href='#finish']",function(){
     
     
 });
+
+$(document).on("click","#btnExport",function(){
+    
+    window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('div#excel')[0].outerHTML));
+    return false;
+    
+});
+
+
+$("#btnExport").click(function (e) {
+    
+});

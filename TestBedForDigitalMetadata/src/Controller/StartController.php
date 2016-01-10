@@ -65,6 +65,8 @@ class StartController extends AppController {
                     
                     $subject->name = $userName;
                     
+                    $subject->comp_id = $id;
+                    
                     $answersTable = TableRegistry::get("answers");
                     
                     $multipleAnswers = TableRegistry::get("multiple_answers");
