@@ -7,6 +7,8 @@ class StartController extends AppController {
 	
 	public function index() 
 	{
+            $this->loadComponent("Check");
+            
             $user = $this->Auth->user();
         
             if($user == null)
@@ -15,9 +17,12 @@ class StartController extends AppController {
             }
             
             $c = TableRegistry::get("compilations");
+            
             $comp = $c->find()->where(["is_active" => 1])->order('rand()')->first();
             
-            if($comp == null)
+            $compilationOkay = $this->Check->checkCompilation($comp);
+            
+            if($comp == null || !$compilationOkay)
             {
                 return $this->redirect(["controller" => "Home","action" => "index"]);
             }
@@ -30,11 +35,15 @@ class StartController extends AppController {
 	
 	public function compilation($key)
 	{
+                $this->loadComponent("Check");
+            
                 $compilations = TableRegistry::get("Compilations");
             
                 $comp = $compilations->find()->where(["url_key" => $key])->first();
                 
-                if($comp == null)
+                $compilationOkay = $this->Check->checkCompilation($comp);
+                
+                if($comp == null || !$compilationOkay)
                 {
                     $user = $this->Auth->user();
         

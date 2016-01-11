@@ -371,6 +371,8 @@ class AdminController extends AppController {
     
     public function compilations($id = null){
         
+       $this->loadComponent("Check");
+        
        $added = false; 
        $message = "";
         
@@ -380,6 +382,16 @@ class AdminController extends AppController {
        $compilationParts = TableRegistry::get("CompilationParts");
       
        $partArray = array();
+       
+       $compilationsList = array();
+       
+       foreach ($compilations->find() as $item)
+       {
+           if($this->Check->checkCompilation($item))
+           {
+               array_push($compilationsList, $item);
+           }
+       }
        
        if($this->request->is("post"))
        {
@@ -607,7 +619,7 @@ class AdminController extends AppController {
        
        $this->set("questions",$questions->find());
        $this->set("documents",$documents->find());
-       $this->set("compilations",$compilations->find());
+       $this->set("compilations",$compilationsList);
 
       
        $this->set("id",$id);
@@ -620,9 +632,21 @@ class AdminController extends AppController {
 
     public function answers($id = null) {
         
+        $this->loadComponent("Check");
+        
         $subjects = TableRegistry::get("Subjects");
         $answers = TableRegistry::get("Answers");
         $compilations = TableRegistry::get("Compilations");
+        
+        $subjectsList = array();
+       
+        foreach ($subjects->find() as $item)
+        {
+            if($this->Check->checkSubject($item))
+            {
+                array_push($subjectsList, $item);
+            }
+        }
         
         $displayAnswers = array();
         
@@ -720,7 +744,7 @@ class AdminController extends AppController {
         
         
         $this->set("id",$id);
-        $this->set("subjects",$subjects->find());
+        $this->set("subjects",$subjectsList);
         $this->set("answers",$displayAnswers);
         $this->set("compilation",$compilation);
         $this->set("subjectName",$subjectName);
