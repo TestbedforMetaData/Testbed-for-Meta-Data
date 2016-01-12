@@ -49,11 +49,16 @@ class AppController extends Controller
         
         $loggedOn = false;
         
+        $userRole = -1;
+        
         if($this->Auth->user() != null)
         {
             $loggedOn = true;
+            
+            $userRole = $this->Auth->user()["role"];
         }
         
         $this->set("loggedOn",$loggedOn);
+        $this->set("userRole",$userRole);
     }
 }
