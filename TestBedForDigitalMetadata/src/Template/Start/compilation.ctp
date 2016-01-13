@@ -25,7 +25,7 @@
 			<p>It appears you don't have a PDF plugin for this browser.</p>					  
                     </object>
                 <?php } else if($item->type == "Question"){ ?>	
-                    <h3><?= $item->text ?></h3>
+                    <?= $item->text ?>
                     <div class="question">
                     <?php if($item->hasOptions) { ?>
                         <?php foreach($item->options as $option): ?>
