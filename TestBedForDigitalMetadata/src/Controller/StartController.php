@@ -222,6 +222,13 @@ class StartController extends AppController {
 
                             
                         }
+                        
+                        if(str_replace(" ", "", $userName)  == "")
+                        {
+                            $subject->name = "Subject ".$subject->id;
+                            
+                            $subjects->save($subject);
+                        }
                     }
                     else
                     {
