@@ -49,7 +49,7 @@
             <?php endforeach; ?>
             <h2>Submit</h2>
             <section>
-                <h3>Enter your name or email</h3>
+                <h3>Enter your name or email (optional)</h3>
                 <input type="text" name="user-name" id="submit-user">
                 <div class="warning" id="user-name-valid"></div>
             </section>
