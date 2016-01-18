@@ -71,20 +71,20 @@
                                 <td style="border: 1px solid">
                                     <?= $excelTable->compName ?>
                                 </td>
-                                <?php foreach($excelTable->subjects as $subject): ?>
+                                <?php foreach($excelTable->questions as $question): ?>
                                 <td style="border: 1px solid">
-                                    <b><?= $subject->name ?></b>
+                                    <b><?= $question->name ?></b>
                                 </td>
                                 <?php endforeach; ?>
                             </tr>
-                            <?php foreach($excelTable->questions as $key => $question): ?>
+                            <?php foreach($excelTable->subjects as $key => $subject): ?>
                             <tr>
                                 <td style="border: 1px solid;vertical-align: top">
-                                    <b><?= $question->name ?></b>
+                                    <b><?= $subject->name ?></b>
                                 </td>
-                                <?php foreach($excelTable->subjects as $s): ?>
+                                <?php foreach($subject->answers as $a): ?>
                                 <td style="border: 1px solid;vertical-align: top">
-                                    <?= $s->answers[$key] ?>
+                                    <?= $a ?>
                                 </td>
                                 <?php endforeach; ?>
                             </tr>
