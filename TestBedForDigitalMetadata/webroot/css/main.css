@@ -433,9 +433,14 @@ a.small-link:hover{
     text-decoration: underline;
 }
 
-div#excel{
+div#excel table{
     display: none;
 }
+
+div#excel{
+    min-height: 300px;
+}
+
 
 
 

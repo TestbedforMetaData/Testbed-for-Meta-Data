@@ -63,53 +63,31 @@
                         <?php } ?>
                     </div>
                     <?php endforeach; ?>
-                    <?php if(!empty($answers)) { ?>
-                    <input type="button" id="btnExport" value=" Export Table data into Excel " />
+                    <?php if(!empty($excelTable->questions)) { ?>
+                    <input type="button" id="btnExport" value=" Export Table data into Excel " /> <a id="toggle-table" class="lnk" href="#">Show Excel Table</a>
                     <div id="excel">
                         <table style="border:1px solid;border-collapse: collapse">
                             <tr>
-                                <td style="border:1px solid">
-                                    <?= $subjectName ?>
+                                <td style="border: 1px solid">
+                                    <?= $excelTable->compName ?>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td style="border:1px solid">
-                                    <?= $compilation->name ?>
+                                <?php foreach($excelTable->subjects as $subject): ?>
+                                <td style="border: 1px solid">
+                                    <b><?= $subject->name ?></b>
                                 </td>
-                            </tr>
-                            <?php foreach ($answers as $part): ?>
-                            <tr>
-                                <th style="border:1px solid;text-align: left">
-                                    <?= $part->text ?>
-                                </th>
-                            </tr>
-                            <?php if($part->type == "text") { ?>
-                            <tr>
-                                <td style="border:1px solid">
-                                    <?= $part->answer_text ?>
-                                </td>
-                            </tr>
-                            <?php } else if ($part->type == "radio") { ?>
-                                <?php foreach ($part->options as $item): ?>
-                                    <?php if($item->checked) {?>
-                                        <tr>
-                                            <td style="border:1px solid">
-                                                <?= $item->text ?>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
                                 <?php endforeach; ?>
-                            <?php } else if ($part->type == "checkbox") { ?>
-                                <?php foreach ($part->options as $item): ?>
-                                    <?php if($item->checked) { ?>
-                                        <tr>
-                                            <td style="border:1px solid">
-                                                <?= $item->text ?>
-                                            </td>
-                                        </tr>
-                                    <?php } ?>
+                            </tr>
+                            <?php foreach($excelTable->questions as $key => $question): ?>
+                            <tr>
+                                <td style="border: 1px solid;vertical-align: top">
+                                    <b><?= $question->name ?></b>
+                                </td>
+                                <?php foreach($excelTable->subjects as $s): ?>
+                                <td style="border: 1px solid;vertical-align: top">
+                                    <?= $s->answers[$key] ?>
+                                </td>
                                 <?php endforeach; ?>
-                            <?php } ?>
+                            </tr>
                             <?php endforeach; ?>
                         </table>
                     </div>

@@ -555,3 +555,11 @@ $(document).on("click","#btnExport",function(){
 $("#btnExport").click(function (e) {
     
 });
+
+$(document).on("click","a#toggle-table",function(){
+    
+    $("div#excel table").toggle();
+    
+    return false;
+    
+});

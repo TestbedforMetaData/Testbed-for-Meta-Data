@@ -637,8 +637,17 @@ class AdminController extends AppController {
         $subjects = TableRegistry::get("Subjects");
         $answers = TableRegistry::get("Answers");
         $compilations = TableRegistry::get("Compilations");
+        $compilationParts = TableRegistry::get("CompilationParts");
+        $questions = TableRegistry::get("Questions");
+        $options = TableRegistry::get("Options");
+        $multipleAnswers = TableRegistry::get("MultipleAnswers");
         
         $subjectsList = array();
+        
+        $excelTable = new \stdClass();
+        $excelTable->questions = array();
+        $excelTable->subjects = array();
+        $excelTable->compName = "";
        
         foreach ($subjects->find() as $item)
         {
@@ -665,6 +674,94 @@ class AdminController extends AppController {
         if($compId != null && $compId != 0)
         {
             $compilation = $compilations->get($compId);
+            
+            $excelTable->compName = $compilation->name;
+            
+            $compSubjects = $subjects->find()->where(["comp_id" => $compId])->toArray();
+            
+            $compParts = $compilationParts->find()->where(["compilation_id" => $compId])->order("visible_order")->toArray();
+            
+            foreach($compParts as $compPart)
+            {
+                if($compPart->type === "Question")
+                {
+                    $q = new \stdClass();
+                    
+                    $q->id = $compPart->part_id;
+                    
+                    $qName = "";
+                    
+                    $qData = $questions->find()->where(["id" => $q->id])->toArray();
+                    
+                    if(!empty($qData))
+                    {
+                        $qName = $qData[0]->name;
+                    }
+                    
+                    $q->name = $qName;
+                    
+                    array_push($excelTable->questions, $q);
+                }
+            }
+            
+            foreach($compSubjects as $compSubject)
+            {
+                $s = new \stdClass();
+                
+                $s->name = $compSubject->name;
+                
+                $s->answers = array();
+                
+                foreach($excelTable->questions as $eq)
+                {
+                    $answerText = "";
+                    
+                    $subjectAnswer = $answers->find()->where(["subject_id" => $compSubject->id, "question_id" => $eq->id])->first();
+                    
+                    if($subjectAnswer != null)
+                    {
+                        if($subjectAnswer->answer_text != "")
+                        {
+                            $answerText = $subjectAnswer->answer_text;
+                        }
+                        else if ($subjectAnswer->is_multiple == 0)
+                        {
+                            $answerOption = $options->find()->where(["id" => $subjectAnswer->answer_option_id])->first();
+
+                            if($answerOption != null)
+                            {
+                                $answerText = $answerOption->text;
+                            }
+                        }
+                        else
+                        {
+                            $answerParts = $multipleAnswers->find()->where(["answer_id" => $subjectAnswer->id])->toArray();
+
+                            $optionArray = array();
+
+                            foreach($answerParts as $ap)
+                            {
+                                $atext = "";
+                                
+                                $aOption = $options->find()->where(["id" => $ap->option_id])->first();
+
+                                if($aOption != null)
+                                {
+                                    $atext = $aOption->text;
+                                }
+                                
+                                array_push($optionArray, $atext);
+                            }
+
+                            $answerText = implode("<br/>", $optionArray);
+                        }
+
+                        array_push($s->answers,$answerText);
+                    }
+                }
+                
+                array_push($excelTable->subjects, $s);
+            }
         }
         
         foreach($subjectAnswers as $item)
@@ -748,6 +845,7 @@ class AdminController extends AppController {
         $this->set("answers",$displayAnswers);
         $this->set("compilation",$compilation);
         $this->set("subjectName",$subjectName);
+        $this->set("excelTable",$excelTable);
     }
     
     public function changePassword()
